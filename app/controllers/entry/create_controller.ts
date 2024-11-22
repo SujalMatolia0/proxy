@@ -7,7 +7,7 @@ export default class Controller {
     vine.object({
       name: vine.string(),
       description: vine.string().maxLength(150).optional(),
-      isProxy: vine.boolean(),
+      slug: vine.string(),
       url: vine.string().url({
         require_protocol: true,
         protocols: ['http', 'https'],
@@ -24,7 +24,7 @@ export default class Controller {
       const entry = await Entry.create({
         name: payload.name,
         description: payload.description,
-        isProxy: payload.isProxy,
+        slug: payload.slug,
         url: payload.url,
       })
 

@@ -7,7 +7,7 @@ export default class Controller {
   input = vine.compile(
     vine.object({
       params: vine.object({
-        entryId: vine.number(),
+        slug: vine.string(),
       }),
     })
   )
@@ -17,19 +17,13 @@ export default class Controller {
       input: this.input,
     },
     handle: async ({ payload, ctx }) => {
-      const entry = await Entry.cached(payload.params.entryId)
+      const entry = await Entry.cached(payload.params.slug)
 
       if (!entry) {
         throw new ProcessingException('Entry not found')
       }
 
-      if (!entry.isProxy) {
-        return ctx.response.redirect(entry.url)
-      }
-
-      ctx.response.plainCookie('entryId', entry.id, { encode: false })
-
-      return ctx.response.redirect().toPath('/')
+      return ctx.response.redirect(entry.url)
     },
   })
 }

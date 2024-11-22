@@ -9,7 +9,7 @@ export default class Entry extends BaseModel {
       id: row.id,
       name: row.name,
       description: row.description,
-      isProxy: Boolean(row.isProxy),
+      slug: row.slug,
       url: row.url,
       createdAt: serializeDT(row.createdAt),
       updatedAt: serializeDT(row.updatedAt),
@@ -20,14 +20,14 @@ export default class Entry extends BaseModel {
     return Entry.serialize(this)
   }
 
-  static async cached(id: number) {
+  static async cached(slug: string) {
     return cache
       .namespace(this.table)
-      .namespace(String(id))
+      .namespace(slug)
       .getOrSet(
         'self',
         async () => {
-          const entry = await this.find(id)
+          const entry = await this.findBy('slug', slug)
 
           if (!entry) {
             return null
@@ -51,7 +51,7 @@ export default class Entry extends BaseModel {
   declare description: string | null
 
   @column()
-  declare isProxy: boolean
+  declare slug: string
 
   @column()
   declare url: string

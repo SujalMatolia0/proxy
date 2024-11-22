@@ -11,7 +11,7 @@ export default class Controller {
       }),
       name: vine.string().optional(),
       description: vine.string().maxLength(150).optional(),
-      isProxy: vine.boolean().optional(),
+      slug: vine.string().optional(),
       url: vine
         .string()
         .url({
@@ -42,8 +42,8 @@ export default class Controller {
         entry.description = payload.description
       }
 
-      if (payload.isProxy !== undefined) {
-        entry.isProxy = payload.isProxy
+      if (payload.slug !== undefined) {
+        entry.slug = payload.slug
       }
 
       if (payload.url && payload.url !== entry.url) {

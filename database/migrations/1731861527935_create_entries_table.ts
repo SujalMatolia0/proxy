@@ -9,7 +9,7 @@ export default class extends BaseSchema {
 
       table.string('name').notNullable()
       table.string('description', 200).nullable()
-      table.boolean('is_proxy').notNullable()
+      table.string('slug').notNullable()
       table.string('url').notNullable()
 
       table.timestamp('created_at')

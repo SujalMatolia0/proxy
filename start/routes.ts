@@ -20,12 +20,10 @@ router
             router.get(':entryId', [() => import('#controllers/entry/show_controller')])
             router.put(':entryId', [() => import('#controllers/entry/update_controller')])
             router.delete(':entryId', [() => import('#controllers/entry/delete_controller')])
-            router.get('process/:entryId', [() => import('#controllers/entry/process_controller')])
+            router.get('redirect/:slug', [() => import('#controllers/entry/redirect_controller')])
           })
           .prefix('entry')
       })
       .prefix('v1')
   })
   .prefix('api')
-
-router.any('*', [() => import('#controllers/entry/proxy_controller')])
